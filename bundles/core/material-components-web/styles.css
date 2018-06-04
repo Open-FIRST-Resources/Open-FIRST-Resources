@@ -2,4 +2,4 @@
 type: page
 pageOutputPath: material-components-web/styles.css
 ---
-{{ require('fs') }}
+{#{ require('fs') }#}
