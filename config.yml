@@ -1,0 +1,16 @@
+# This file contains the initial metalsmith metadata.
+
+# This is an array of all of the IDs (folder names) for the bundles that should be processed.
+# Bundles lower in the list can override files and terms in higher ones.
+bundles:
+- core
+- custom
+
+# The base URL where the site will be deployed. Should include a trailing slash.
+productionBaseURL: https://ofr-metalsmith.cyberdro.me/
+
+# baseURL is set to developmentBaseURL for development builds.
+developmentBaseURL: http://localhost:8080/
+
+# The port on which to serve the development server. If you change this, you probably also have to change developmentBaseURL.
+developmentPort: 8080
