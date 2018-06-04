@@ -7,7 +7,7 @@ bundles:
 - custom
 
 # The base URL where the site will be deployed. Should include a trailing slash.
-productionBaseURL: https://ofr-metalsmith.cyberdro.me/
+productionBaseURL: https://open-first-resources.netlify.com/
 
 # baseURL is set to developmentBaseURL for development builds.
 developmentBaseURL: http://localhost:8080/
