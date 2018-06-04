@@ -1,6 +1,9 @@
 # Open FIRST Resources
 This is the build repository for [openfirstresources.com](https://www.openfirstresources.com). It includes the `core` bundle.
 
+## Building the Site
+To build the site you will need to have NPM installed. You can run a production build using `npm run build` or start a continuous development build and server by running `npm start`.
+
 ## Build Process
 
 | Build Step | Description |
