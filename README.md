@@ -4,6 +4,21 @@ This is the build repository for [openfirstresources.org](https://www.openfirstr
 ## Building the Site
 To build the site you will need to have NPM installed. You can run a production build using `npm run build` or start a continuous development build and server by running `npm start`.
 
+## Technologies Used
+OFR uses a number of other projects and technologies to work:
+
+### Content Files & Templating
+- [Markdown (generally Github flavored)](https://guides.github.com/features/mastering-markdown/)
+- [YAML](https://learnxinyminutes.com/docs/yaml/)
+- [Nunjucks](https://mozilla.github.io/nunjucks/templating.html)
+
+### Build System & Rendering
+- [Node.js](https://nodejs.org/en/) & [npm](https://docs.npmjs.com/)
+- [Metalsmith](http://www.metalsmith.io/)
+- [Nunjucks](https://mozilla.github.io/nunjucks/api.html)
+- Yet to be implemented: some sort of markdown parser, possibly [marked](https://marked.js.org/#/README.md)
+
+
 ## Build Process
 
 | Build Step | Description |
