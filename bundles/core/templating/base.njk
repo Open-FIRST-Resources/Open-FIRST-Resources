@@ -14,7 +14,10 @@ override: core/base
   {% if author %}<meta name="author" content="{{ author }}">{% endif %}
   {% if authors %}<meta name="author" content="{% for author in authors %}{{ ', ' if not loop.first }}{{ author }}{% endfor %}">{% endif %}
 
-  <link rel="stylesheet" href="/styles.css?v=0">
+  <link rel="stylesheet" href="/static/fonts/roboto/index.css?v=18">
+  <link rel="stylesheet" href="/static/css/material-components-web.min.css?v=0.36.0">
+
+  <link rel="stylesheet" href="/static/css/styles.css?v=0">
 
   <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
@@ -23,5 +26,7 @@ override: core/base
 
 <body>
   {% block bodyContent %}{% endblock %}
+  <script src="/static/js/material-components-web.min.js?v=0.36.0"></script>
+  <script>mdc.autoInit();</script>
 </body>
 </html>

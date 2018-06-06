@@ -2,5 +2,9 @@
 noOutput: true
 override: core/video
 ---
-{% extends 'core/base' %}
-<h1>I'm a video!</h1>
+{% extends 'core/page' %}
+
+{% block pageContent %}
+  <h1>Video -> {{ title }}</h1>
+  {% include contentPath %}
+{% endblock %}

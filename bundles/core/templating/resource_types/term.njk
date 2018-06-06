@@ -2,5 +2,9 @@
 noOutput: true
 override: core/term
 ---
-{% extends 'core/base' %}
-<h1>I'm a term!</h1>
+{% extends 'core/page' %}
+
+{% block pageContent %}
+  <h1>Term -> {{ title }}</h1>
+  {% include contentPath %}
+{% endblock %}

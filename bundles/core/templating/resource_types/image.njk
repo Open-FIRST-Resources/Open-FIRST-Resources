@@ -2,5 +2,9 @@
 noOutput: true
 override: core/image
 ---
-{% extends 'core/base' %}
-<h1>I'm an image!</h1>
+{% extends 'core/page' %}
+
+{% block pageContent %}
+  <h1>Image -> {{ title }}</h1>
+  {% include contentPath %}
+{% endblock %}

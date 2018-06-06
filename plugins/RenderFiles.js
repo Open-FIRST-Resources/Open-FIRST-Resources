@@ -18,31 +18,31 @@ function renderFiles(files, metalsmith, done) {
         case 'page':
           debug('type: page');
           warnIfOverriding(path, file.pageOutputPath, outputFiles);
-          var rendered = njkEnv.render(path, file);
+          var rendered = njkEnv.render(getTemplateToRender(path, file, 'core/page'), Object.assign(file, {contentPath: path}));
           outputFiles[file.pageOutputPath] = {contents: rendered ? rendered : ''};
           break;
         case 'index':
           debug('type: index');
           warnIfOverriding(path, file.pageOutputPath, outputFiles);
-          var rendered = njkEnv.render(path, file);
+          var rendered = njkEnv.render(getTemplateToRender(path, file, 'core/index'), Object.assign(file, {contentPath: path}));
           outputFiles[file.pageOutputPath] = {contents: rendered ? rendered : ''};
           break;
         case 'document':
-        debug('type: document');
-        warnIfOverriding(path, file.pageOutputPath, outputFiles);
-        var rendered = njkEnv.render(path, file);
-        outputFiles[file.pageOutputPath] = {contents: rendered ? rendered : ''};
+          debug('type: document');
+          warnIfOverriding(path, file.pageOutputPath, outputFiles);
+          var rendered = njkEnv.render(getTemplateToRender(path, file, 'core/document'), Object.assign(file, {contentPath: path}));
+          outputFiles[file.pageOutputPath] = {contents: rendered ? rendered : ''};
           break;
         case 'term':
           debug('type: term');
           warnIfOverriding(path, file.pageOutputPath, outputFiles);
-          var rendered = njkEnv.render(path, file);
+          var rendered = njkEnv.render(getTemplateToRender(path, file, 'core/term'), Object.assign(file, {contentPath: path}));
           outputFiles[file.pageOutputPath] = {contents: rendered ? rendered : ''};
           break;
         case 'image':
           debug('type: image');
           warnIfOverriding(path, file.pageOutputPath, outputFiles);
-          var rendered = njkEnv.render('core/image', file);
+          var rendered = njkEnv.render(getTemplateToRender(path, file, 'core/image'), Object.assign(file, {contentPath: path}));
           outputFiles[file.pageOutputPath] = {contents: rendered ? rendered : ''};
           warnIfOverriding(path, file.contentOutputPath, outputFiles);
           outputFiles[file.contentOutputPath] = file;
@@ -50,7 +50,7 @@ function renderFiles(files, metalsmith, done) {
         case 'video':
           debug('type: video');
           warnIfOverriding(path, file.pageOutputPath, outputFiles);
-          var rendered = njkEnv.render('core/video', file);
+          var rendered = njkEnv.render(getTemplateToRender(path, file, 'core/video'), Object.assign(file, {contentPath: path}));
           outputFiles[file.pageOutputPath] = {contents: rendered ? rendered : ''};
           warnIfOverriding(path, file.contentOutputPath, outputFiles);
           outputFiles[file.contentOutputPath] = file;
@@ -78,6 +78,16 @@ function renderFiles(files, metalsmith, done) {
 function warnIfOverriding(srcPath, outPath, outputFiles) {
   if(outputFiles[outPath]) {
     console.log(`[WARNING] ${srcPath} will write to ${outPath}, but there is already content there. Generally, overriding source files is prefferable.`);
+  }
+}
+
+function getTemplateToRender(path, file, defaultTemplate) {
+  if(file.noExternalTemplate) {
+    return path;
+  }else if(file.template) {
+    return template;
+  }else {
+    return defaultTemplate;
   }
 }
 

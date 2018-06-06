@@ -1,0 +1,12 @@
+---
+noOutput: true
+override: core/page
+---
+{% extends 'core/base' %}
+
+{% block bodyContent %}
+  {% include 'core/header' %}
+  {% block pageContent %}
+    {% include contentPath %}
+  {% endblock pageContent %}
+{% endblock %}

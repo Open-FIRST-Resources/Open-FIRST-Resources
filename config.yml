@@ -1,5 +1,7 @@
 # This file contains the initial metalsmith metadata.
 
+title: Open FIRST Resources
+
 # This is an array of all of the IDs (folder names) for the bundles that should be processed.
 # Bundles lower in the list can override files and terms in higher ones.
 bundles:

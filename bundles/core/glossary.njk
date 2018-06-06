@@ -1,0 +1,12 @@
+---
+title: Glossary
+type: page
+override: core/glossary
+pageOutputPath: glossary.html
+description: An index of all the terms that are on the Open FIRST Resources.
+---
+<h1>Glossary</h1>
+{% for term in site.metadata.terms %}
+  {{ term }}
+  {# TODO This isn't working... #}
+{% endfor %}

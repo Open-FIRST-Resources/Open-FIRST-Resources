@@ -5,7 +5,6 @@
   "main": "build.js",
   "dependencies": {
     "js-yaml": "^3.11.0",
-    "material-components-web": "^0.35.2",
     "metalsmith": "^2.3.0",
     "metalsmith-debug": "^1.2.0",
     "metalsmith-livereload": "^0.1.0",
