@@ -1,0 +1,15 @@
+---
+title: Resources
+type: page
+override: core/resources
+pageOutputPath: resources.html
+description: Everything in the Open FIRST Resources.
+---
+<h1>Resources</h1>
+<ul>
+  {% for path, file in site.files %}
+    {% if file.type != 'undefined' %}
+      <li><a href="/{{ file.pageURLPath }}">{{ file.title }} ({{ path }})</a></li>
+    {% endif %}
+  {% endfor %}
+</ul>
