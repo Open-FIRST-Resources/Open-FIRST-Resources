@@ -6,5 +6,5 @@ override: core/document
 
 {% block pageContent %}
   <h1>Document -> {{ title }}</h1>
-  {% include contentPath %}
+  {% filter markdown %}{% include contentPath %}{% endfilter %}
 {% endblock %}

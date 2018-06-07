@@ -10,13 +10,13 @@ OFR uses a number of other projects and technologies to work:
 ### Content Files & Templating
 - [Markdown (generally Github flavored)](https://guides.github.com/features/mastering-markdown/)
 - [YAML](https://learnxinyminutes.com/docs/yaml/)
-- [Nunjucks](https://mozilla.github.io/nunjucks/templating.html)
 
 ### Build System & Rendering
 - [Node.js](https://nodejs.org/en/) & [npm](https://docs.npmjs.com/)
 - [Metalsmith](http://www.metalsmith.io/)
-- [Nunjucks](https://mozilla.github.io/nunjucks/api.html)
-- Yet to be implemented: some sort of markdown parser, possibly [marked](https://marked.js.org/#/README.md)
+- [Nunjucks](https://mozilla.github.io/nunjucks/)
+- [Marked](https://marked.js.org/#/README.md)
+- [Highlight.js](https://highlightjs.org/)
 
 
 ## Build Process
@@ -43,3 +43,10 @@ OFR uses a number of other projects and technologies to work:
 | Term | `term` | Jargon. Description page can be linked to from other content (with a tooltip) easily. | `contentOutputPath` is unset if set. If unset, `pageURLPath` is set to the file's path with the last file extension removed (if there is one to remove). If unset, `pageOutputPath` is set to `pageURLPath` followed by `.html`. A nunjucks template will be rendered to `pageOutputPath` with the context of the file's data (e.g. frontmatter + `contents`) in a addition to `contentPath` being set to the file's path, `site.files` containing all of the metalsmith files, and `site.metadata` containing the metalsmith metadata. The template rendered will be `core/term` by default, the value contained in `template` if specified, or the file itself if `noExternalTemplate` is evaluates to `true`. |
 | Image | `image` | An image, with an accompanying page to display it and give information about it. | If unset, `contentOutputPath` is set to the file's path. If unset, `pageURLPath` is set to the file's path with the last file extension removed (if there is one to remove). If unset, `pageOutputPath` is set to `pageURLPath` followed by `.html`. File contents are rendered to `contentOutputPath` without modification. A nunjucks template will be rendered to `pageOutputPath` with the context of the file's data (e.g. frontmatter + `contents`) in a addition to `contentPath` being set to the file's path, `site.files` containing all of the metalsmith files, and `site.metadata` containing the metalsmith metadata. The template rendered will be `core/image` by default, the value contained in `template` if specified, or the file itself if `noExternalTemplate` is evaluates to `true`. |
 | Video | `video` | A video, with an accompanying page to display it and give information about it. | If unset, `contentOutputPath` is set to the file's path. If unset, `pageURLPath` is set to the file's path with the last file extension removed (if there is one to remove). If unset, `pageOutputPath` is set to `pageURLPath` followed by `.html`. File contents are rendered to `contentOutputPath` without modification. A nunjucks template will be rendered to `pageOutputPath` with the context of the file's data (e.g. frontmatter + `contents`) in a addition to `path` being set to the file's path, `site.files` containing all of the metalsmith files, and `site.metadata` containing the metalsmith metadata. The template rendered will be `core/video` by default, the value contained in `template` if specified, or the file itself if `noExternalTemplate` is evaluates to `true`. |
+
+## Core Bundle
+The `core` bundle contains many individual pages on the site, templates for rendering content, and various other files. Here's an overview of some of its contents:
+
+| Path | Source Path (before overrides) | Description |
+| --- | --- | --- |
+| TODO | | |

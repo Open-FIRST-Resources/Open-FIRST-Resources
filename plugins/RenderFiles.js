@@ -1,6 +1,8 @@
 var debug = require('debug')('ofr-render_files');
 var multimatch = require('multimatch');
 var nunjucks = require('nunjucks');
+var marked = require('marked');
+var highlight = require('highlight.js').highlight;
 
 function renderFiles(files, metalsmith, done) {
   var metadata = metalsmith.metadata();
@@ -92,6 +94,59 @@ function getTemplateToRender(path, file, defaultTemplate) {
 }
 
 function createNunjucksEnvironment(files, metadata) {
+  //Set up markdown w/ highlight.js
+  marked.setOptions({
+    baseURL: metadata.baseURL,
+    gfm: true,
+    tables: true,
+    highlight: (code, lang) => {
+      debug('highlighting...', JSON.stringify(code.substring(0, 50) + '...'), lang);
+
+      var showLineNumbers = false;
+      var lineNumbersStart = 1;
+      if(lang.indexOf('#') != -1) {
+        debug('# found in lang, adding line numbers');
+        showLineNumbers = true;
+        var splitLang = lang.split('#');
+        lang = splitLang[0];
+        if (splitLang[1]) {
+          lineNumbersStart = Number(splitLang[1]);
+        }
+        if(isNaN(lineNumbersStart)) {
+          console.log(`[WARNING] Unable to parse line number, using 1: ${splitLang[1]}`);
+        }
+        debug('line numbers configured', lang, showLineNumbers, lineNumbersStart);
+      }
+
+      var highlighted = code;
+      if(lang) {
+        try {
+          highlighted = highlight(lang, code, true).value;
+          debug('highlighted', JSON.stringify(highlighted.substring(0, 50) + '...'));
+        }catch(e) {
+          debug('highlighting errored', e);
+          console.log(`[WARNING] Failed to properly highlight code: ${JSON.stringify(code.substring(0, 50) + '...')}`, e.message);
+        }
+      }else {
+        debug('unset code language, not highlighting');
+      }
+
+      if(showLineNumbers) {
+
+        var numLines = highlighted.split(/\r\n|\r|\n/).length;
+        var lineNumbers = String(lineNumbersStart);
+        for(var i = lineNumbersStart + 1; i < numLines + lineNumbersStart; i++) {
+          lineNumbers += "\n" + i;
+        }
+        return `<div class='hljs'><div class='line_numbers'>${lineNumbers}</div>${highlighted}<div>`;
+
+      }else {
+        return `<div class='hljs'>${highlighted}<div>`;
+      }
+    }
+  });
+
+  //Create, configure, and return nunjucks environment
   return new nunjucks.Environment({
     getSource: path => {
       if(files[path]) {
@@ -102,7 +157,11 @@ function createNunjucksEnvironment(files, metadata) {
         throw `fail to load template, ${path} is not a file`;
       }
     }
-  }).addGlobal('site', {files: files, metadata: metadata});
+  }, {
+    autoescape: false
+  })
+  .addGlobal('site', {files: files, metadata: metadata})
+  .addFilter('markdown', marked);
 }
 
 module.exports = () => {return renderFiles}
