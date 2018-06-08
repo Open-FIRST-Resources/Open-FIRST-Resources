@@ -14,7 +14,8 @@ override: core/base
   {% if author %}<meta name="author" content="{{ author }}">{% endif %}
   {% if authors %}<meta name="author" content="{% for author in authors %}{{ ', ' if not loop.first }}{{ author }}{% endfor %}">{% endif %}
 
-  <link rel="stylesheet" href="/static/fonts/roboto/index.css?v=18">
+  <link rel="stylesheet" href="/static/fonts/roboto/roboto.css?v=18">
+  <link rel="stylesheet" href="/static/fonts/material-icons/material-icons.css?v=2.2.0">
   <link rel="stylesheet" href="/static/css/material-components-web.min.css?v=0.36.0">
   <link rel="stylesheet" href="/static/css/highlighting.css?v=0">
   <link rel="stylesheet" href="/static/css/styles.css?v=0">
