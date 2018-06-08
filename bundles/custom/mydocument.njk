@@ -1,71 +1,6 @@
-Hi there! I'm a doc.
-<div class="mdc-typography" data-mdc-auto-init="MDCTypography">
-  <h1 class="mdc-typography--headline1">Big header</h1>
-</div>
-<i class="material-icons">filter_5</i>
-Code:
-
-```javascript#8
-//Package imports
-var metalsmith = require('metalsmith');
-var metafiles = require('metalsmith-metafiles');
-var livereload = require('metalsmith-livereload');
-var watch = require('metalsmith-watch');
-// var serve = require('metalsmith-serve');
-var debug = require('metalsmith-debug');
-
-//Local imports
-var initializeMetadata = require('./plugins/InitializeMetadata');
-var validateBundles = require('./plugins/ValidateBundles');
-var overrideFiles = require('./plugins/OverrideFiles');
-var cleanTypes = require('./plugins/CleanTypes');
-var setOutputPaths = require('./plugins/SetOutputPaths');
-var indexTerms = require('./plugins/IndexTerms');
-var renderFiles = require('./plugins/RenderFiles');
-var serve = require('./plugins/Serve');
-
-/**
- * Start a build.
- * @param {Boolean} devBuild Whether to run a continuous, local, development build.
- */
-function build(devBuild) {
-  console.log('Building...');
-  var startTime = new Date();
-  
-  //Initial metalsmith setup
-  var ms = metalsmith(__dirname)
-  .source('bundles')
-  .destination('build')
-  .clean(true)
-
-  //Build
-  .use(initializeMetadata(devBuild))
-  .use(validateBundles())
-  .use(metafiles({parsers: {".yml": true}}))
-  .use(overrideFiles())
-  .use(cleanTypes())
-  .use(setOutputPaths())
-  .use(indexTerms())
-  .use(renderFiles())
-  .use(debug())
-  
-  //Apply plugins for automated, live-reloading development builds
-  if(devBuild) {
-    console.log('Starting dev environment...');
-
-    ms
-    .use(livereload())
-    .use(watch({paths: {"${source}/**": "**"}}))
-    .use(serve());
-  }
-
-  //Start build
-  ms.build(function(err) {
-    if(err) throw err;
-    else console.log('Done! Took ' + getBuildDurationString(startTime) + '.\n');
-  });
-}
-
+Normally in Markdown, you specify code blocks like this:
+~~~
+```
 /**
  * Create a string that describes how long a build took.
  * @param {Date} startTime when the build was started
@@ -78,6 +13,113 @@ function getBuildDurationString(startTime) {
 
   return (minutes ? minutes + 'm ' : '') + (seconds ? seconds + 's ': '') + millis + 'ms';
 }
+```
+~~~
 
-module.exports.build = build;
+which results in
+
+```
+/**
+ * Create a string that describes how long a build took.
+ * @param {Date} startTime when the build was started
+ */
+function getBuildDurationString(startTime) {
+  var timeDiff = (new Date() - startTime);
+  var millis = Math.floor(timeDiff % 1000);
+  var seconds = Math.floor((timeDiff/1000) % 60);
+  var minutes = Math.floor(timeDiff/60000);
+
+  return (minutes ? minutes + 'm ' : '') + (seconds ? seconds + 's ': '') + millis + 'ms';
+}
+```
+
+With GitHub, you can also specify a language to do syntax highlighting:
+~~~
+```javascript
+
+...code...
+
+```
+~~~
+
+which results in
+```javascript
+/**
+ * Create a string that describes how long a build took.
+ * @param {Date} startTime when the build was started
+ */
+function getBuildDurationString(startTime) {
+  var timeDiff = (new Date() - startTime);
+  var millis = Math.floor(timeDiff % 1000);
+  var seconds = Math.floor((timeDiff/1000) % 60);
+  var minutes = Math.floor(timeDiff/60000);
+
+  return (minutes ? minutes + 'm ' : '') + (seconds ? seconds + 's ': '') + millis + 'ms';
+}
+```
+
+I'm playing around with extending that syntax of things after the ```` ``` ````s (unfortunately marked doesn't like spaces there):
+
+```` ```# ````
+```#
+/**
+ * Create a string that describes how long a build took.
+ * @param {Date} startTime when the build was started
+ */
+function getBuildDurationString(startTime) {
+  var timeDiff = (new Date() - startTime);
+  var millis = Math.floor(timeDiff % 1000);
+  var seconds = Math.floor((timeDiff/1000) % 60);
+  var minutes = Math.floor(timeDiff/60000);
+
+  return (minutes ? minutes + 'm ' : '') + (seconds ? seconds + 's ': '') + millis + 'ms';
+}
+```
+
+```` ```javascript#42 ````
+```javascript#42
+/**
+ * Create a string that describes how long a build took.
+ * @param {Date} startTime when the build was started
+ */
+function getBuildDurationString(startTime) {
+  var timeDiff = (new Date() - startTime);
+  var millis = Math.floor(timeDiff % 1000);
+  var seconds = Math.floor((timeDiff/1000) % 60);
+  var minutes = Math.floor(timeDiff/60000);
+
+  return (minutes ? minutes + 'm ' : '') + (seconds ? seconds + 's ': '') + millis + 'ms';
+}
+```
+
+```` ```@4@6,hi@1@9 ````
+```@4@6,hi@1@9
+/**
+ * Create a string that describes how long a build took.
+ * @param {Date} startTime when the build was started
+ */
+function getBuildDurationString(startTime) {
+  var timeDiff = (new Date() - startTime);
+  var millis = Math.floor(timeDiff % 1000);
+  var seconds = Math.floor((timeDiff/1000) % 60);
+  var minutes = Math.floor(timeDiff/60000);
+
+  return (minutes ? minutes + 'm ' : '') + (seconds ? seconds + 's ': '') + millis + 'ms';
+}
+```
+
+```` ```javascript#42@4@6,hi@1@9 ````
+```javascript#42@4@6,hi@1@9
+/**
+ * Create a string that describes how long a build took.
+ * @param {Date} startTime when the build was started
+ */
+function getBuildDurationString(startTime) {
+  var timeDiff = (new Date() - startTime);
+  var millis = Math.floor(timeDiff % 1000);
+  var seconds = Math.floor((timeDiff/1000) % 60);
+  var minutes = Math.floor(timeDiff/60000);
+
+  return (minutes ? minutes + 'm ' : '') + (seconds ? seconds + 's ': '') + millis + 'ms';
+}
 ```

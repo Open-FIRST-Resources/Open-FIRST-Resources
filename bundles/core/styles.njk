@@ -2,10 +2,11 @@
 override: core/styles
 contentOutputPath: static/css/styles.css
 ---
-/* Line numbers */
-.line_numbers {
+/* Code sections */
+.code-sidebar {
   float: left;
-  padding-right: 10px;
+  padding-right: 6px;
+  margin-right: 6px;
   text-align: right;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -13,6 +14,18 @@ contentOutputPath: static/css/styles.css
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  border-right: 1px solid #272727
+}
+
+.code-notes {
+  text-align: center;
+}
+
+.code-note {
+  color: #333;
+  background: white;
+  padding: 0 6px;
+  border-radius: 6px;
 }
 
 /* Icon selecting */

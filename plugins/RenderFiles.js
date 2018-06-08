@@ -102,9 +102,48 @@ function createNunjucksEnvironment(files, metadata) {
     highlight: (code, lang) => {
       debug('highlighting...', JSON.stringify(code.substring(0, 50) + '...'), lang);
 
+      var showNotes = false;
+      var notes = [];
+      if(lang != undefined && lang.indexOf('@') != -1) {
+        debug('@ found in lang, adding notes');
+        showNotes = true;
+        var splitLang = lang.split('@');
+        lang = splitLang[0];
+
+        var lastNote = 0;
+        for(var i = 1; i < splitLang.length; i++) {
+          var langNote = splitLang[i];
+          debug('iterating through notes', i, langNote);
+
+          if(langNote.indexOf(',') != -1) {
+            noteParts = langNote.split(',');
+            var line = Number(noteParts[0]);
+            if(!isNaN(line)) {
+              if(noteParts[1]) {
+                notes[line - 1] = noteParts[1];
+              }else {
+                console.log(`[WARNING] No text for line note @${line}, ignoring.`);
+              }
+            }else {
+              console.log(`[WARNING] Unable to parse number for line note @${langNote}, ignoring.`);
+            }
+          }else {
+            var line = Number(langNote);
+            if(!isNaN(line)) {
+              notes[line - 1] = ++lastNote;
+            }else {
+              console.log(`[WARNING] Unable to parse number for line note @${langNote}, skipping.`);
+              ++lastNote;
+            }
+          }
+        }
+
+        debug('notes configured', lang, showNotes, notes);
+      }
+
       var showLineNumbers = false;
       var lineNumbersStart = 1;
-      if(lang.indexOf('#') != -1) {
+      if(lang != undefined && lang.indexOf('#') != -1) {
         debug('# found in lang, adding line numbers');
         showLineNumbers = true;
         var splitLang = lang.split('#');
@@ -131,18 +170,25 @@ function createNunjucksEnvironment(files, metadata) {
         debug('unset code language, not highlighting');
       }
 
-      if(showLineNumbers) {
+      var numLines = highlighted.split(/\r\n|\r|\n/).length;
 
-        var numLines = highlighted.split(/\r\n|\r|\n/).length;
+      if(showLineNumbers) {
         var lineNumbers = String(lineNumbersStart);
         for(var i = lineNumbersStart + 1; i < numLines + lineNumbersStart; i++) {
           lineNumbers += "\n" + i;
         }
-        return `<div class='hljs'><div class='line_numbers'>${lineNumbers}</div>${highlighted}<div>`;
-
-      }else {
-        return `<div class='hljs'>${highlighted}<div>`;
+        highlighted = `<div class='code-sidebar code-line_numbers'>${lineNumbers}</div>${highlighted}`;
       }
+
+      if(showNotes) {
+        var lineNotes='';
+        for(var i = 0; i < numLines + 1; i++) { //The +1 shouldn't really be there but it makes sure that the border goes all the way down.
+          lineNotes += (i != 0 ? "\n" : '') + (notes[i] ? `<span class='code-note'>${notes[i]}</span>` : '');
+        }
+        highlighted = `<div class='code-sidebar code-notes'>${lineNotes}</div>${highlighted}`;
+      }
+
+      return `<div class='hljs'>${highlighted}</div>`;
     }
   });
 
