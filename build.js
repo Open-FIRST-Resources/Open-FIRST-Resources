@@ -3,7 +3,6 @@ var metalsmith = require('metalsmith');
 var metafiles = require('metalsmith-metafiles');
 var livereload = require('metalsmith-livereload');
 var watch = require('metalsmith-watch');
-// var serve = require('metalsmith-serve');
 var debug = require('metalsmith-debug');
 
 //Local imports
