@@ -37,8 +37,8 @@ function build(devBuild) {
   .use(cleanTypes())
   .use(setOutputPaths())
   .use(indexTerms())
-  .use(renderFiles())
   .use(debug())
+  .use(renderFiles());
   
   //Apply plugins for automated, live-reloading development builds
   if(devBuild) {

@@ -1,0 +1,24 @@
+---
+noOutput: true
+---
+{% extends 'core/templates/page.njk' %}
+
+{% block pageContent %}
+
+  <h1>Document -> {{ title }}</h1>
+
+  {% if sections %}
+    {% import contentPath as file %}
+    {% for section in sections %}
+      {% for sectionID, sectionInfo in section %}
+        <h2 id='{{sectionID}}'>{{sectionInfo.title}}</h2>
+        {% filter markdown %}{{file[sectionID]}}{% endfilter %}
+      {% endfor %}
+    {% endfor %}
+
+  {% else %}
+    {% filter markdown %}{% include contentPath %}{% endfilter %}
+
+  {% endif %}
+
+{% endblock %}

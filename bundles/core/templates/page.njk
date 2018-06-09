@@ -1,11 +1,10 @@
 ---
 noOutput: true
-override: core/page
 ---
-{% extends 'core/base' %}
+{% extends 'core/templates/base.njk' %}
 
 {% block bodyContent %}
-  {% include 'core/header' %}
+  {% include 'core/partials/header.njk' %}
   {% block pageContent %}
     {% include contentPath %}
   {% endblock pageContent %}

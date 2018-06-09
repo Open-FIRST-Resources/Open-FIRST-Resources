@@ -20,40 +20,54 @@ function renderFiles(files, metalsmith, done) {
         case 'page':
           debug('type: page');
           warnIfOverriding(path, file.pageOutputPath, outputFiles);
-          var rendered = njkEnv.render(getTemplateToRender(path, file, 'core/page'), Object.assign(file, {contentPath: path}));
+          var template = getTemplateToRender(path, file, 'core/templates/page.njk');
+          var rendered = njkEnv.render(template, Object.assign(file, {contentPath: path}));
+          debug('rendered template', template, rendered ? JSON.stringify(rendered.substring(0, 100) + '...') : rendered);
           outputFiles[file.pageOutputPath] = {contents: rendered ? rendered : ''};
           break;
         case 'index':
           debug('type: index');
           warnIfOverriding(path, file.pageOutputPath, outputFiles);
-          var rendered = njkEnv.render(getTemplateToRender(path, file, 'core/index'), Object.assign(file, {contentPath: path}));
+          var template = getTemplateToRender(path, file, 'core/templates/index.njk');
+          var rendered = njkEnv.render(template, Object.assign(file, {contentPath: path}));
+          debug('rendered template', template, rendered ? JSON.stringify(rendered.substring(0, 100) + '...') : rendered);
           outputFiles[file.pageOutputPath] = {contents: rendered ? rendered : ''};
           break;
         case 'document':
           debug('type: document');
           warnIfOverriding(path, file.pageOutputPath, outputFiles);
-          var rendered = njkEnv.render(getTemplateToRender(path, file, 'core/document'), Object.assign(file, {contentPath: path}));
+          var template = getTemplateToRender(path, file, 'core/templates/document.njk');
+          var rendered = njkEnv.render(template, Object.assign(file, {contentPath: path}));
+          debug('rendered template', template, rendered ? JSON.stringify(rendered.substring(0, 100) + '...') : rendered);
           outputFiles[file.pageOutputPath] = {contents: rendered ? rendered : ''};
           break;
         case 'term':
           debug('type: term');
           warnIfOverriding(path, file.pageOutputPath, outputFiles);
-          var rendered = njkEnv.render(getTemplateToRender(path, file, 'core/term'), Object.assign(file, {contentPath: path}));
+          var template = getTemplateToRender(path, file, 'core/templates/term.njk');
+          var rendered = njkEnv.render(template, Object.assign(file, {contentPath: path}));
+          debug('rendered template', template, rendered ? JSON.stringify(rendered.substring(0, 100) + '...') : rendered);
           outputFiles[file.pageOutputPath] = {contents: rendered ? rendered : ''};
           break;
         case 'image':
           debug('type: image');
           warnIfOverriding(path, file.pageOutputPath, outputFiles);
-          var rendered = njkEnv.render(getTemplateToRender(path, file, 'core/image'), Object.assign(file, {contentPath: path}));
+          var template = getTemplateToRender(path, file, 'core/templates/image.njk')
+          var rendered = njkEnv.render(template, Object.assign(file, {contentPath: path}));
+          debug('rendered template', template, rendered ? JSON.stringify(rendered.substring(0, 100) + '...') : rendered);
           outputFiles[file.pageOutputPath] = {contents: rendered ? rendered : ''};
+
           warnIfOverriding(path, file.contentOutputPath, outputFiles);
           outputFiles[file.contentOutputPath] = file;
           break;
         case 'video':
           debug('type: video');
           warnIfOverriding(path, file.pageOutputPath, outputFiles);
-          var rendered = njkEnv.render(getTemplateToRender(path, file, 'core/video'), Object.assign(file, {contentPath: path}));
+          var template = getTemplateToRender(path, file, 'core/templates/video.njk')
+          var rendered = njkEnv.render(template, Object.assign(file, {contentPath: path}));
+          debug('rendered template', template, rendered ? JSON.stringify(rendered.substring(0, 100) + '...') : rendered);
           outputFiles[file.pageOutputPath] = {contents: rendered ? rendered : ''};
+
           warnIfOverriding(path, file.contentOutputPath, outputFiles);
           outputFiles[file.contentOutputPath] = file;
           break;
@@ -197,9 +211,10 @@ function createNunjucksEnvironment(files, metadata) {
     getSource: path => {
       if(files[path]) {
         var template = files[path].contents.toString();
-        debug('retrieved template', path, template.substring(0, 10) + ((template.length>10) ? '...' : ''));
+        debug('retrieved template', path, JSON.stringify(template.substring(0, 100) + ((template.length>10) ? '...' : '')));
         return {path: path, src: template};
       }else {
+        console.log(`[WARNING] Nunjucks tried to load a template at ${path} but there isn't one there. Nunjucks may not error itself but this could result in blank output files.`);
         throw `fail to load template, ${path} is not a file`;
       }
     }

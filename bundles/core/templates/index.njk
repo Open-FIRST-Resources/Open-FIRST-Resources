@@ -1,10 +1,9 @@
 ---
 noOutput: true
-override: core/video
 ---
-{% extends 'core/page' %}
+{% extends 'core/templates/page.njk' %}
 
 {% block pageContent %}
-  <h1>Video -> {{ title }}</h1>
+  <h1>Index -> {{ title }}</h1>
   {% include contentPath %}
 {% endblock %}
