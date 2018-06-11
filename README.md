@@ -23,9 +23,10 @@ OFR uses a number of other projects and technologies to work:
 
 | Build Step | Description |
 | --- | --- |
+| Normalize Paths | Replace any `\`s in file paths to be `/`s. |
 | Initialize Metadata | Load Metalsmith metadata from `config.yml` (which should contain `bundles`, `productionBaseURL`, and `developmentBaseURL`). Also, set `metadata.devBuild` and `metadata.baseURL` depending on whether this is a development build. |
 | Validate Bundles | Remove any files that are not part of a bundles specified in `metadata.bundles` and exit if no files belong to a specified bundle. |
-| Metafiles | Using `metalsmith-metafiles`, put any data specified in `<path>.meta.yml` files into corresponding `<path>` files and delete the `<path>.meta.yml` files. If a corresponding `<path>` file for a `<path>.meta.yml` file does not exist, error. |
+| Apply Metafiles | Put any data specified in `<path>.meta.yml` files into corresponding `<path>` files and delete the `<path>.meta.yml` files. If a corresponding `<path>` file for a `<path>.meta.yml` file does not exist, error. |
 | Override Files | Iterate through the files in bundle order. If the file specifes a `override` key with a path that is within a bundle that has already been iterated through or is the current bundle, set `files[path]` to the file with an additional `overrideOriginalPath` value and an `overriden` array containing the overriden versions of the files in most original-first (lastest to be overriden-last) order. If the file specifes a `override` key with a path that is within a bundle that is yet to be iterated through, or is not specified, error.
 | Clean Types | If set, downcase every file's `type`. If `type` is set but not included in the list below, error. If `type` is unset, set to `undefined`. |
 | Set Output Paths | `contentOutputPath`, `pageOutputPath`, and `pageURLPath` are set for every file based on the table below. |
