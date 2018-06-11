@@ -18,8 +18,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node -e 'require(\"./build.js\").build(true)'",
-    "build": "node -e 'require(\"./build.js\").build(false)'"
+    "start": "node -e \"require('./build.js').build(true)\"",
+    "build": "node -e \"require('./build.js').build(false)\""
   },
   "repository": {
     "type": "git",
