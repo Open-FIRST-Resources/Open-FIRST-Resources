@@ -6,6 +6,7 @@ var watch = require('metalsmith-watch');
 var debug = require('metalsmith-debug');
 
 //Local imports
+var normalizePaths = require('./plugins/NormalizePaths');
 var initializeMetadata = require('./plugins/InitializeMetadata');
 var validateBundles = require('./plugins/ValidateBundles');
 var overrideFiles = require('./plugins/OverrideFiles');
@@ -30,6 +31,8 @@ function build(devBuild) {
   .clean(true)
 
   //Build
+  .use(normalizePaths())
+  .use(debug())
   .use(initializeMetadata(devBuild))
   .use(validateBundles())
   .use(metafiles({parsers: {".yml": true}}))
