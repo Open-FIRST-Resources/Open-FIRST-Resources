@@ -2,7 +2,7 @@ var debug = require('debug')('ofr-initialize_metadata');
 var jsYAML = require('js-yaml');
 
 function initializeMetadata(devBuild) {
-  debug('initialized with', devBuild)
+  debug('initialized with', devBuild);
 
   return (files, metalsmith, done) => {
     var metadata = jsYAML.load(fs.readFileSync('config.yml', 'utf8'));

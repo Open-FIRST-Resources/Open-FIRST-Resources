@@ -10,7 +10,6 @@
     "metalsmith": "^2.3.0",
     "metalsmith-debug": "^1.2.0",
     "metalsmith-livereload": "^0.1.0",
-    "metalsmith-metafiles": "^2.0.0",
     "metalsmith-serve": "0.0.7",
     "metalsmith-watch": "^1.0.3",
     "multimatch": "^2.1.0",

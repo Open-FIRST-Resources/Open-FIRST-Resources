@@ -1,6 +1,5 @@
 //Package imports
 var metalsmith = require('metalsmith');
-var metafiles = require('metalsmith-metafiles');
 var livereload = require('metalsmith-livereload');
 var watch = require('metalsmith-watch');
 var debug = require('metalsmith-debug');
@@ -9,6 +8,7 @@ var debug = require('metalsmith-debug');
 var normalizePaths = require('./plugins/NormalizePaths');
 var initializeMetadata = require('./plugins/InitializeMetadata');
 var validateBundles = require('./plugins/ValidateBundles');
+var applyMetafiles = require('./plugins/ApplyMetafiles');
 var overrideFiles = require('./plugins/OverrideFiles');
 var cleanTypes = require('./plugins/CleanTypes');
 var setOutputPaths = require('./plugins/SetOutputPaths');
@@ -32,10 +32,9 @@ function build(devBuild) {
 
   //Build
   .use(normalizePaths())
-  .use(debug())
   .use(initializeMetadata(devBuild))
   .use(validateBundles())
-  .use(metafiles({parsers: {".yml": true}}))
+  .use(applyMetafiles())
   .use(overrideFiles())
   .use(cleanTypes())
   .use(setOutputPaths())
