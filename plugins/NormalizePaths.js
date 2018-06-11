@@ -3,7 +3,7 @@ var debug = require('debug')('ofr-normalize_paths');
 function normalizePaths(files, metalsmith, done) {
   var paths = Object.keys(files);
   paths.forEach(path => {
-    var normalizedPath = path.replace('\\', '/');
+    var normalizedPath = path.split('\\').join('/');
     debug('normalizing path', path, normalizedPath);
     var file = files[path];
     delete files[path];
