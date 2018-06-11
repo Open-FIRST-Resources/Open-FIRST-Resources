@@ -11,7 +11,8 @@ function applyMetafiles(files, metalsmith, done) {
     if(!files[filePath]) {
       throw `No corresponding file for the metafile ${metaPath}`
     }
-    files[filePath] = Object.assign(files[filePath], jsYAML.load(files[metaPath].contents.toString()))
+    files[filePath] = Object.assign(files[filePath], jsYAML.load(files[metaPath].contents.toString()));
+    delete files[metaPath];
   });
   done();
 }
