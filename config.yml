@@ -6,7 +6,6 @@ title: Open FIRST Resources
 # Bundles lower in the list can override files and terms in higher ones.
 bundles:
 - core
-- custom
 - open-first-resources
 
 # The base URL where the site will be deployed. Should include a trailing slash.

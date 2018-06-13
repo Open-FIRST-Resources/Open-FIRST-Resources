@@ -9,6 +9,16 @@ noOutput: true
 
   {% if sections %}
     {% import contentPath as file %}
+
+    Sections:
+    <ul>
+      {% for section in sections %}
+        {% for sectionID, sectionInfo in section %}
+          <li><a href='#{{sectionID}}'>{{sectionInfo.title}}</a></li>
+        {% endfor %}
+      {% endfor %}
+    </ul>
+
     {% for section in sections %}
       {% for sectionID, sectionInfo in section %}
         <h2 id='{{sectionID}}'>{{sectionInfo.title}}</h2>

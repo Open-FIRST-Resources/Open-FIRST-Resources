@@ -1,3 +1,8 @@
+---
+type: document
+title: Additional Features for Code Blocks
+description: An overview and examples for how to highlight, and line numbers to, and add notes to code blocks in OFR content.
+---
 Normally in Markdown, you specify code blocks like this:
 ~~~
 ```
@@ -33,7 +38,7 @@ function getBuildDurationString(startTime) {
 }
 ```
 
-With GitHub, you can also specify a language to do syntax highlighting:
+With GitHub and OFR, you can also specify a language to do syntax highlighting:
 ~~~
 ```javascript
 
@@ -58,7 +63,7 @@ function getBuildDurationString(startTime) {
 }
 ```
 
-I'm playing around with extending that syntax of things after the ```` ``` ````s (unfortunately marked doesn't like spaces there):
+OFR extends that syntax of things after the ```` ``` ````s (unfortunately it cannot contain spaces):
 
 ```` ```# ````
 ```#
