@@ -6,6 +6,11 @@ termName: metalsmith
 sections:
 - intro:
     title: Introduction
+    subsections:
+    - subsection:
+        title: Subsection!
+        fromFile: open-first-resources/build_system/test.md
+        sectionAlias: synopsis
 - file_types:
     title: Types of Files
 - bundles:
@@ -21,6 +26,10 @@ sections:
 ---
 {% set intro %}
 The build system for the Open FIRST Resources fundamentally just converts a folder full of files (mostly Markdown files) into another folder full of files (mostly HTML), but the process by which it does that can get a little complicated. OFR's build system is written in javascript and is entirely orchestrated by Metalsmith, an open source static site generator. The build process consists of Metalsmith reading in the source files, running a number of (mostly custom) plugins that interact with the build files and Metalsmith's metadata, and then Metalsmith saving the resulting files. First, some background about the build process, followed by an overview of each build step and a list of supported resource types.
+{% endset %}
+
+{% set subsection %}
+Some sub content!
 {% endset %}
 
 {% set file_types %}

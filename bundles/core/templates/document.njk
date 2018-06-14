@@ -3,6 +3,8 @@ noOutput: true
 ---
 {% extends 'core/templates/page.njk' %}
 
+{% from 'core/macros/document_section.njk' import documentSection %}
+
 {% block pageContent %}
 
   <h1>Document -> {{ title }}</h1>
@@ -20,10 +22,7 @@ noOutput: true
     </ul>
 
     {% for section in sections %}
-      {% for sectionID, sectionInfo in section %}
-        <h2 id='{{sectionID}}'>{{sectionInfo.title}}</h2>
-        {% filter markdown %}{{file[sectionID]}}{% endfilter %}
-      {% endfor %}
+      {{ documentSection(contentPath, section) }}
     {% endfor %}
 
   {% else %}

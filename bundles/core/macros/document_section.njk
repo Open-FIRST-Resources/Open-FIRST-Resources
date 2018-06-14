@@ -1,0 +1,19 @@
+---
+noOutput: true
+---
+{% macro documentSection(contentPath, section, tier=1) %}
+
+  {% import contentPath as file %}
+  {% for sectionID, sectionInfo in section %}
+    <h{{ tier }} id='{{sectionID}}'>{{sectionInfo.title}}</h{{tier}}>
+
+    {% filter markdown %}{{file[sectionID]}}{% endfilter %}
+
+    {% if sectionInfo.subsections %}
+      {% for section in sectionInfo.subsections %}
+        {{ documentSection(contentPath, section, tier + 1) }}
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
+
+{% endmacro %}
