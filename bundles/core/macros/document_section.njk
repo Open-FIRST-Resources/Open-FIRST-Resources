@@ -7,13 +7,18 @@ noOutput: true
   {% for sectionID, sectionInfo in section %}
     <h{{ tier }} id='{{sectionID}}'>{{sectionInfo.title}}</h{{tier}}>
 
-    {% filter markdown %}{{file[sectionID]}}{% endfilter %}
+	{% if sectionInfo.fromFile %}
+		{% import fromFile as file %}
+			{% filter markdown %}{{file[sectionID]}}{% endfilter %}
+		{% else %}
+			{% filter markdown %}{{file[sectionID]}}{% endfilter %}
+	{% endif %}
 
-    {% if sectionInfo.subsections %}
+    {#{% if sectionInfo.subsections %}
       {% for section in sectionInfo.subsections %}
         {{ documentSection(contentPath, section, tier + 1) }}
       {% endfor %}
-    {% endif %}
+    {% endif %}#}
   {% endfor %}
 
 {% endmacro %}
