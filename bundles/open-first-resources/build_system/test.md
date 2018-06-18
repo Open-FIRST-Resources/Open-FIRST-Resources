@@ -8,7 +8,7 @@ sections:
 	subsections:
 	- subsection:
 		title: this is a subsection
-	- subsection2
+	- subsection2:
 		title: this is another subsection
 - section2:
 	title: Super Creative Name
