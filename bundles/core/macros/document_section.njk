@@ -9,7 +9,7 @@ noOutput: true
 
     {% if sectionInfo.fromFile %}
       {% import sectionInfo.fromFile as extFile %}
-      {% filter markdown %}{{extFile[sectionID]}}{% endfilter %}
+      {% filter markdown %}{{extFile[sectionID]}}{% endfilter %}{# Todo, implement existence check and section aliases #}
     {% else %}
       {% filter markdown %}{{file[sectionID]}}{% endfilter %}
     {% endif %}
