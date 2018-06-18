@@ -8,8 +8,8 @@ noOutput: true
     <h{{ tier }} id='{{sectionID}}'>{{sectionInfo.title}}</h{{tier}}>
 
     {% if sectionInfo.fromFile %}
-      {% import fromFile as file %}
-      {% filter markdown %}{{file[sectionID]}}{% endfilter %}
+      {% import sectionInfo.fromFile as extFile %}
+      {% filter markdown %}{{extFile[sectionID]}}{% endfilter %}
     {% else %}
       {% filter markdown %}{{file[sectionID]}}{% endfilter %}
     {% endif %}
