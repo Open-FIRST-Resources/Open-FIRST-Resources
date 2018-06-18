@@ -65,3 +65,4 @@ typings/
 
 # CUSTOM GITIGNORE
 build/
+.vs/
